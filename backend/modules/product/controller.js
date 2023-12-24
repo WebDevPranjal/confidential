@@ -2,41 +2,59 @@ const Product = require('./schema');
 
 exports.createProduct = async (req, res) => {
     try {
-        const { name, gst, hsn, batches } = req.body;
-    
-        // Check if batches is an array, if not, convert it to an array
-        const batchArray = Array.isArray(batches) ? batches : [batches];
-    
+        const productData = req.body;
+        const { name } = req.body;
+
         // Check if a product with the same name already exists
         let existingProduct = await Product.findOne({ name });
-    
+
         if (existingProduct) {
-          // If the product exists, add the new batches to it
-          existingProduct.batches.push(...batchArray);
-          await existingProduct.save();
-    
-          res.status(200).json(existingProduct);
+            console.log("Product already exists");
+            res.status(409).json({ error: 'Product already exists' });
         } else {
-          // If the product does not exist, create a new product
-          const newProduct = new Product({ name, gst, hsn, batches: batchArray });
-          const savedProduct = await newProduct.save();
-    
-          res.status(201).json(savedProduct);
+            // If the product does not exist, create a new product
+            const newProduct = new Product({ ...productData });
+            const savedProduct = await newProduct.save();
+
+            res.status(201).json(savedProduct);
         }
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
+exports.createBatch = async (req, res) => {
+  try {
+      const { name, batch } = req.body;
+
+      let existingProduct = await Product.findOne({ name });
+
+      if (existingProduct) {
+          // If the product exists, add the batch to it
+          existingProduct.batches.push(batch);
+          const updatedProduct = await existingProduct.save();
+          res.status(200).json(updatedProduct);
+      } else {
+          // If the product does not exist, return an error
+          console.log("Product not found");
+          res.status(404).json({ error: 'Product not found' });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
 // Controller function to get all products
-exports.getAllProducts = async (req, res) => {
+exports.getAllProducts = async () => {
   try {
     const products = await Product.find();
-    res.status(200).json(products);
+    return products;
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    throw error;
   }
 };
 

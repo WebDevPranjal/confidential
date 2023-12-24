@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/stylesheets/invoice.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Invoice</h1>
+  </header>
+
+  <div class="container">
+    <div class="flex">
+      <label for="invoice-type">Invoice Type</label>
+      <input type="text" id="invoice-type" value="sales" readonly>
+  
+      <label for="invoice-number">Invoice Number</label>
+      <input type="text" name="invoice-number" id="invoice-number">
+    </div>
+
+    <div class="flex">
+      <label for="customer-name">Customer Name</label>
+      <input type="text" name="customer-name" id="customer-name">
+
+      <label for="invoice-date">Invoice Date</label>
+      <input type="date" name="invoice-date" id="invoice-date">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="flex">
+      <label for="product">Select Product:</label>
+      <select id="product">
+        <option value="">---Select Product---</option>
+        <% products.forEach(product => { %>
+        <option value="<%= product.name %>">
+          <%= product.name %>
+        </option>
+        <% }); %>
+      </select>
+
+      <label for="selected-batch">Selected Batch:</label>
+      <input type="text" onclick="showBatchDetails(<%= JSON.stringify(products) %>)" 
+                id="selected-batch" readonly value="">
+    </div>
+    <div class="flex">
+      <label for="product-mrp">Product MRP:</label>
+      <input type="Number" id="product-mrp" value="" name="mrp" placeholder="MRP">
+
+      <label for="product-date">Product Expire Date:</label>
+      <input type="date" id="product-date" value="" name="expireDate">
+    </div>
+
+    <div class="flex">
+      <label for="salerate">Product Purchase Rate:</label>
+      <input type="Number" id="salerate" value="" name="salerate" placeholder="Rate">
+  
+      <label for="quantity">Product Quantity:</label>
+      <input type="Number" placeholder="Quantity" name="quantity">
+    </div>
+
+    <div class="flex">
+      <label for="discount">Product Discount:</label>
+      <input type="Number" placeholder="Discount" name="discount">
+  
+      <label for="free">Product Free:</label>
+      <input type="Number" placeholder="Free" name="free">
+    </div>
+
+    <div class="flex">
+      <button onclick="addToTable()">Add to Table</button>
+    </div>   
+  </div>
+
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Batch</th>
+        <th>Expire Date</th>
+        <th>MRP</th>
+        <th>Purchase Rate</th>
+        <th>Quantity</th>
+        <th>Discount</th>
+        <th>Free</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <button onclick="invoiceData()">Generate Bill</button>
+  <footer>
+    © 2023 Confidential
+   </footer>
+
+
+  <div class="overlay" id="overlay"></div>
+  <div class="batch-details" id="batchDetails">
+    <h2 id="batchProductName"></h2>
+    <ul id="batchList"></ul>
+    <button onclick="closeBatchDetails()">Close</button>
+  </div>
+  
+<script src="/scripts/invoice.js"></script>
+</body>
+</html>

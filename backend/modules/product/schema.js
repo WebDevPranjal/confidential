@@ -23,6 +23,11 @@ const batchSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  //mrp
+  mrp: {
+    type: Number,
+    required: true
+  },
 });
 
 const productSchema = new mongoose.Schema({
@@ -40,10 +45,22 @@ const productSchema = new mongoose.Schema({
 
   // HSN (Harmonized System of Nomenclature) code
   hsn: {
-    type: String,
+    type: Number,
     required: true
   },
 
+  purchaserate: {
+    type: Number
+  },
+
+  salerate: {
+    type: Number
+  },
+
+  companyname: {
+    type: String,
+    required: true
+  },
   // Array of batches with unique quantity and expiration date
   batches: [batchSchema]
 });

@@ -4,18 +4,25 @@ const updateStock = require('../../utils/updateStock');
 exports.createInvoice = async (req, res) => {
   try {
     const invoice = new Invoice(req.body);
+    const { type } = req.body;
     await invoice.save();
+
 
     for (const product of invoice.products) {
       const productName = product.name;
       const productQty = product.quantity;
       const productBatch = product.batch;
+      const freeQty = product.free;
 
       // console.log("Product Name:", productName);
       // console.log("Batch:", productBatch);
       // console.log("------");
-
-      await updateStock.updateStock(productName, productBatch, productQty,0);
+      if(type == 'sales') {
+        await updateStock.updateStockSales(productName, productBatch, productQty,freeQty);
+      }
+      else if(type == 'purchase'){
+        await updateStock.updateStockPurchase(productName, productBatch, productQty,freeQty);
+      }
     }
 
     res.status(201).json(invoice);
@@ -50,6 +57,7 @@ exports.getInvoiceById = async (req, res) => {
   }
 };
 
+// update invoice is not completed
 exports.updateInvoice = async (req, res) => {
   try {
     const { id } = req.params;
@@ -99,10 +107,24 @@ exports.updateInvoice = async (req, res) => {
 exports.deleteInvoice = async (req, res) => {
     try {
       const invoiceId = req.params.id;
-  
-      // Check if the invoice exists
+
       const existingInvoice = await Invoice.findById(invoiceId);
-  
+      const { type } = existingInvoice;
+      
+      for (const product of existingInvoice.products) {
+        const productName = product.name;
+        const productQty = product.quantity;
+        const productBatch = product.batch;
+        const freeQty = product.free;
+
+        if(type == 'sales') {
+          await updateStock.updateStockSalesOnDelete(productName, productBatch, productQty,freeQty);
+        }
+        else if(type == 'purchase'){
+          await updateStock.updateStockPurchaseOnDelete(productName, productBatch, productQty,freeQty);
+        }
+      }
+
       if (!existingInvoice) {
         return res.status(404).json({ message: 'Invoice not found' });
       }

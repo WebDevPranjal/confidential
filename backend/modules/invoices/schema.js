@@ -9,24 +9,8 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  expireDate: {
-    type: Date,
-    required: true
-  },
-  packaging: {
-    type: String,
-    required: true
-  },
-  hsn: {
-    type: String,
-    required: true
-  },
   discount: {
     type: Number,
-    required: true
-  },
-  mrp: {
-    type: String,
     required: true
   },
   free: {
@@ -37,14 +21,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  cgst: {
+  invoicerate: {
     type: Number,
     required: true
-  },
-  sgst: {
-    type: String,
-    required: true
-  },
+  }
 });
 
 const invoiceSchema = new mongoose.Schema({
