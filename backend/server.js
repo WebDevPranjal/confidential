@@ -5,6 +5,7 @@ const cors = require('cors');
 const customerRoutes = require('./modules/customer/routes');
 const productRoutes = require('./modules/product/routes');
 const invoiceRoutes = require('./modules/invoices/routes');
+const reportGstRoutes = require('./modules/reports/gst/routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,9 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // Use the customer routes
-app.use('/customer', customerRoutes);
+app.use('/customers', customerRoutes);
 app.use('/product', productRoutes);
 app.use('/invoices', invoiceRoutes);
+app.use('/gst',reportGstRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

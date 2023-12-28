@@ -47,10 +47,10 @@ exports.createBatch = async (req, res) => {
 };
 
 
-// Controller function to get all products
-exports.getAllProducts = async () => {
+exports.getAllProducts = async (req,res) => {
   try {
     const products = await Product.find();
+    res.render('productPage', { products, pageTitle: 'Product Page' });
     return products;
   } catch (error) {
     console.error(error);

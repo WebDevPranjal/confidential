@@ -1,0 +1,247 @@
+:root {
+    --red-color:#E4423B;
+    --dark-grey:#71797E;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 1.25em;
+    background-color: #f4f4f4;
+    box-sizing: border-box;
+    color:#36454F;
+}
+
+p {
+    margin: 0;
+}
+
+.invoice {
+    background-color: #fff;
+    max-width: 53.75em;
+    margin: 0 auto;
+    padding: 1.25em;
+}
+
+.top-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-section img {
+    width: 10rem;
+}
+
+.top-section h2 {
+    margin-right: 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.bottom-section {
+    height: auto;
+}
+
+.bottom-section p {
+    text-transform: capitalize;
+    margin: 0;
+    font-size: 0.8em;
+    margin-bottom: 0.3rem;
+    color:var(--dark-grey);
+}
+
+.invoice-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5em 0;
+}
+
+.invoice-details strong {
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+.invoice-details p {
+    margin-top: 0.4em;
+    font-size: 0.8em;
+}
+
+
+.invoice-details div {
+    flex: 1;
+}
+
+.right-side {
+    background: #eee;
+    box-sizing: border-box;
+    display: flex;
+    padding: 2.5em 1.5em;
+    height: 7em;
+    justify-content: space-between;
+    border-left: 1em solid var(--red-color)
+}
+
+.right-side p {
+    font-size: 0.8em;
+}
+
+.invoice-items,
+.gst {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.25em;
+}
+
+.invoice-items th,
+.invoice-items td {
+    /* border: 1px solid #ddd; */
+    padding: 0.3125em;
+    text-align: left;
+}
+
+.invoice-items th {
+    background: var(--red-color);
+    color:white;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+th, td {
+    font-size: .8em;
+}
+
+.gst-details {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.gst-details .total {
+    margin-top: 1.25em;
+    border: 1px solid var(--dark-grey);
+    width: 30%;
+    box-sizing: border-box;
+    padding: 0.5em;
+}
+
+.gst-details .total p {
+    font-size: .9em;
+    margin-bottom: .2em ;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.gst-details .flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gst {
+    width: 70%;
+}
+
+.gst th,
+.gst td {
+    /* border: 1px solid #eee; */
+    padding: 0.3em;
+    text-align: left;
+}
+
+.grand-total {
+    margin-top: .5em;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    height: 8vh;
+}
+
+.grand-total .left {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 1em 0.5em;
+    width: 55%;
+    border: 1px solid var(--dark-grey);
+    text-transform: capitalize;
+}
+
+.grand-total .right {
+    display: flex;
+    align-self: center;
+    width: 45%;
+    height: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 1em 0.5em;
+    padding-left: 8em;
+    background: var(--red-color);
+    color:white;
+    font-weight: 600;
+}
+
+.footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 1em 0;
+}
+
+.footer h4 {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: 600;
+    color:var(--red-color);
+}
+
+.footer .left {
+    width: 30%;
+}
+
+.left img {
+    width: 10em;
+    margin-left: 3.5em;
+}
+
+.left p {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.footer .right {
+    box-sizing: border-box;
+    padding: 0.5em;
+    width: 40%;
+    color:var(--dark-grey);
+}
+
+
+
+.footer .flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Print styles for A4 size */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    body {
+        margin: 0; /* Adjust the margin as needed */
+    }
+
+    button {
+        display: none;
+    }
+
+    .invoice {
+        padding: 0;
+    }
+}

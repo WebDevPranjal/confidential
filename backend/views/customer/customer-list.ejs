@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .customer-list {
+      max-width: 800px;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .customer-item {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .customer-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .customer-email,
+    .customer-address,
+    .customer-phoneNumber,
+    .customer-dlNumber,
+    .customer-gstnNumber,
+    .customer-category {
+      color: #666;
+    }
+
+    .delete-button {
+      position: absolute;
+      right: 10px;
+      background-color: #ff5c5c;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .update-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none; /* Remove underline for the link */
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .update-button a {
+    color: #fff;
+    text-decoration: none;
+  }
+  </style>
+</head>
+<body>
+  <div class="customer-list">
+    <ul>
+      <% customers.forEach(customer => { %>
+        <li class="customer-item">
+          <button class="delete-button" onclick="deleteCustomer('<%= customer._id %>')">Delete</button>
+          <button class="update-button"><a href="/customers/<%= customer._id %>">Update</a></button>
+          <div class="customer-name"><%= customer.name %></div>
+          <div class="customer-email"><%= customer.email %></div>
+          <div class="customer-address"><%= customer.address %></div>
+          <div class="customer-phoneNumber"><%= customer.phoneNumber %></div>
+          <div class="customer-dlNumber"><%= customer.dlNumber %></div>
+          <div class="customer-gstnNumber"><%= customer.gstnNumber %></div>
+          <div class="customer-category"><%= customer.category %></div>
+        </li>
+      <% }); %>
+    </ul>
+  </div>  
+</body>
+<script>
+  function deleteCustomer(customerId) {
+    fetch(`/customers/${customerId}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to delete customer: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Customer deleted successfully', data);
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error('Error deleting customer:', error.message);
+    });
+  }
+</script>
+</html>

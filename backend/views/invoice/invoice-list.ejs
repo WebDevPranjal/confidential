@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Invoices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        strong {
+            color: #555;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Invoices</h1>
+
+    <ul>
+        <% invoices.forEach((invoice) => { %>
+        <li>
+            <strong>Invoice Number:</strong> <%= invoice.invoiceNumber %><br>
+            <strong>Amount:</strong> <%= invoice.customerName %><br>
+            <strong>Date:</strong> <%= new Date(invoice.date).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %><br>
+            <strong>Type:</strong> <%= invoice.type %><br>
+            <strong>Get Invoice:</strong> <a href="/invoices/<%=invoice._id%>">Get Pdf</a><br>
+            <strong>Delete Invoice:</strong> <button onclick="deleteInvoice('<%=invoice._id%>')">Delete</button>
+        </li>
+        <% }); %>
+    </ul>
+</body>
+<script>
+    function deleteInvoice(id) {
+        // Send a delete request to the server
+        fetch(`/invoices/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                // Reload the page after successful deletion
+                window.location.reload();
+            } else {
+                console.error('Failed to delete invoice');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</html>

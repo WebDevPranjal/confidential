@@ -67,8 +67,8 @@
             <td><%= product.name %></td>
             <td><%= product.hsn %></td>
             <td><%= product.gst %></td>
-            <td><%= product.purchaserate %></td>
-            <td><%= product.salerate %></td>
+            <td><%= product.purchaserate.toFixed(2) %></td>
+            <td><%= product.salerate.toFixed(2) %></td>
             <td>
               <% if(product.batches && product.batches.length > 0) { %>
                 <button onclick="showBatchDetails('<%= product.name %>', <%= JSON.stringify(product.batches) %>)">Show Batches</button>

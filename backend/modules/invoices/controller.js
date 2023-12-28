@@ -1,5 +1,9 @@
 const Invoice = require('./schema');
 const updateStock = require('../../utils/updateStock');
+const Customer = require('../customer/schema');
+const Product = require('../product/schema');
+const invoiceUtils = require('../../utils/invoiceRender');
+const numberToWords = require('number-to-words');
 
 exports.createInvoice = async (req, res) => {
   try {
@@ -36,10 +40,31 @@ exports.createInvoice = async (req, res) => {
   }
 };
 
+exports.createInvoicePurchase = async (req,res) => {
+  try {
+    const products = await Product.find();
+    res.render('./invoice/purchase-create', { products, pageTitle: 'Product' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+exports.createInvoiceSales = async (req,res) => {
+  try {
+    const products = await Product.find();
+    res.render('./invoice/sales-create', { products, pageTitle: 'Product' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 exports.getAllInvoices = async (req, res) => {
   try {
     const invoices = await Invoice.find();
-    res.status(200).json(invoices);
+   res.render('./invoice/invoice-list',{ invoices });
+   // res.status(200).json(invoices);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -48,10 +73,19 @@ exports.getAllInvoices = async (req, res) => {
 exports.getInvoiceById = async (req, res) => {
   try {
     const invoice = await Invoice.findById(req.params.id);
+
     if (!invoice) {
       return res.status(404).json({ message: 'Invoice not found' });
     }
-    res.status(200).json(invoice);
+
+    const customer = await Customer.findOne({ name: invoice.customerName });
+    const products = await invoiceUtils.processInvoiceProducts(invoice.products);
+    const gstDetails = invoiceUtils.calculateGSTDetails(products);
+    const total = invoiceUtils.calculateTotal(products, gstDetails);
+    const totalInWords = numberToWords.toWords(total.grandTotal.toFixed(0));
+   
+    res.render('./invoice-template/invoice-template', {invoice, customer , products, gstDetails,total,totalInWords });
+  
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
