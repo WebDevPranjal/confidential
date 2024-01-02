@@ -16,13 +16,22 @@ exports.createProduct = async (req, res) => {
             const newProduct = new Product({ ...productData });
             const savedProduct = await newProduct.save();
 
-            res.status(201).json(savedProduct);
+            res.status(201).json('Product created succesfully');
         }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+exports.createProductPage = async (req,res) => {
+  try{
+    const header = 'Product / Create'
+    res.render('./product/create', { header })
+  }catch(error){
+    res.header(500).json('Internal error is occured');
+  }
+}
 
 exports.createBatch = async (req, res) => {
   try {
@@ -50,7 +59,8 @@ exports.createBatch = async (req, res) => {
 exports.getAllProducts = async (req,res) => {
   try {
     const products = await Product.find();
-    res.render('productPage', { products, pageTitle: 'Product Page' });
+    const header = 'Product / All Products'
+    res.render('./inventory/all-product', { products, header });
     return products;
   } catch (error) {
     console.error(error);

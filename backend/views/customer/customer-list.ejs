@@ -4,96 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    .customer-list {
-      max-width: 800px;
-      width: 100%;
-      padding: 20px;
-    }
-
-    .customer-item {
-      background-color: #fff;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .customer-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .customer-email,
-    .customer-address,
-    .customer-phoneNumber,
-    .customer-dlNumber,
-    .customer-gstnNumber,
-    .customer-category {
-      color: #666;
-    }
-
-    .delete-button {
-      position: absolute;
-      right: 10px;
-      background-color: #ff5c5c;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .update-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    text-decoration: none; /* Remove underline for the link */
-    display: inline-block;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-
-  .update-button a {
-    color: #fff;
-    text-decoration: none;
-  }
-  </style>
+  <link rel="stylesheet" href="/stylesheets/basic.css">
+  <link rel="stylesheet" href="/stylesheets/common.css">
+  <link rel="stylesheet" href="/stylesheets/customer-list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="customer-list">
-    <ul>
-      <% customers.forEach(customer => { %>
-        <li class="customer-item">
-          <button class="delete-button" onclick="deleteCustomer('<%= customer._id %>')">Delete</button>
-          <button class="update-button"><a href="/customers/<%= customer._id %>">Update</a></button>
-          <div class="customer-name"><%= customer.name %></div>
-          <div class="customer-email"><%= customer.email %></div>
-          <div class="customer-address"><%= customer.address %></div>
-          <div class="customer-phoneNumber"><%= customer.phoneNumber %></div>
-          <div class="customer-dlNumber"><%= customer.dlNumber %></div>
-          <div class="customer-gstnNumber"><%= customer.gstnNumber %></div>
-          <div class="customer-category"><%= customer.category %></div>
-        </li>
-      <% }); %>
-    </ul>
+ 
+  <%- include('../common/side-menu.ejs') %>
+  <section class="home-section">
+    <section class="body">
+      <nav class="navbar">
+        <i class="fa-solid fa-bars"></i>
+        <%- include('../common/navbar.ejs') %>
+      </nav>
+      
+      <p class="page-details"><%= header %></p>
+
+      <div class="customer-list">
+        <ul>
+          <% customers.forEach(customer => { %>
+            <li class="customer-item">
+              <div class="customer-details">
+                <p class="customer-name"><%= customer.name %></p>
+                <p class="customer-email"><%= customer.email %></p>
+                <p class="customer-address"><%= customer.address %></p>
+                <p class="customer-phoneNumber"><%= customer.phoneNumber %></p>
+                <p class="customer-dlNumber"><%= customer.dlNumber %></p>
+                <p class="customer-gstnNumber"><%= customer.gstnNumber %></p>
+                <p class="customer-category"><%= customer.category %></p>
+              </div>
+               <div class="btns">
+                  <button class="delete-button" onclick="deleteCustomer('<%= customer._id %>')">Delete</button>
+                  <button class="update-button"><a href="/customers/<%= customer._id %>">Update</a></button>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      </div> 
+    </section>
+
   </div>  
 </body>
 <script>
@@ -116,4 +66,5 @@
     });
   }
 </script>
+<script src="/scripts/side-menu.js"></script>
 </html>

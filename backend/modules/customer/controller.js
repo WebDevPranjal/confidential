@@ -3,7 +3,8 @@ const Customer = require('./schema');
 exports.getAllCustomers = async (req, res) => {
     try {
       const customers = await Customer.find();
-      res.render('./customer/customer-list', { customers });
+      const header = 'Customer'
+      res.render('./customer/customer-list', { customers , header});
      // res.json(customers);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -18,7 +19,9 @@ exports.getCustomerById = async (req, res) => {
     if (!customer) {
       return res.status(404).json({ error: 'Customer not found' });
     }
-    res.render('./customer/update-customer', { customer } )
+
+    const header = `Customer / Update / ${ customer.name  }` ;
+    res.render('./customer/update-customer', { customer , header } )
     //res.json(customer);
   } catch (error) {
     console.error(error);
@@ -28,7 +31,8 @@ exports.getCustomerById = async (req, res) => {
 
 exports.createCustomerPage = async (req,res) => {
     try{
-      res.render('./customer/create');
+      const header = 'Customer / Create'
+      res.render('./customer/create' , { header });
     }catch (error){
       console.log(error);
       res.status(500).json({ message: 'Internal Server Error'});
@@ -65,7 +69,7 @@ exports.updateCustomer = async (req, res) => {
       return res.status(404).json({ message: 'Customer not found' });
     }
 
-    const { name, email, address, gstnNumber, dlNumber, phoneNumber } = req.body;
+    const { name, email, address, gstnNumber, dlNumber, phoneNumber, category } = req.body;
 
     existingCustomer.name = name || existingCustomer.name;
     existingCustomer.email = email || existingCustomer.email;
@@ -73,6 +77,7 @@ exports.updateCustomer = async (req, res) => {
     existingCustomer.gstnNumber = gstnNumber || existingCustomer.gstnNumber;
     existingCustomer.dlNumber = dlNumber || existingCustomer.dlNumber;
     existingCustomer.phoneNumber = phoneNumber || existingCustomer.phoneNumber;
+    existingCustomer.category = category || existingCustomer.category;
 
     const updatedCustomer = await existingCustomer.save();
     res.status(200).json({ message: 'Customer updated successfully', customer: updatedCustomer });

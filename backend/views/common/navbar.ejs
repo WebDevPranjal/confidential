@@ -1,0 +1,66 @@
+<div class="main-navbar">
+    <div class="left">
+        <h3>Confidential Project</h3>
+    </div>
+    <div class="right">
+        <div class="flex">
+            <input type="text" placeholder="Search Me">
+            <button class="nav-search-btn">Search</button>
+        </div>
+    </div>
+</div>
+
+<style>
+
+.main-navbar {
+    height: 5em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-navbar .left {
+    width: fit-content;
+}
+
+.main-navbar .right {
+    width: fit-content;
+    margin-right: 1em;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap:1em;
+ }
+
+.nav-search-btn {
+    border: none;
+    background: var(--secondary-color);
+    font-weight: 600;
+    border-radius: 5px;
+    padding: .6em 2em;
+    color: white;
+    transition: .3s;
+}
+.nav-search-btn:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.right input {
+    width: 15em;
+    border: none;
+    background: white;
+    height: 2.5em;
+    box-shadow: var(--box-shadow);
+    outline: none;
+    padding: .5em;
+    transition: .1s;
+}
+
+.right input:hover {
+    border: 1px solid var(--secondary-color);
+}
+
+</style>

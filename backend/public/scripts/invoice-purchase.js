@@ -59,7 +59,7 @@ function sendDataToServer(endpoint, data) {
       return response.json();
     })
     .then(responseData => {
-      console.log('Data sent successfully:', responseData);
+      alert('Data sent successfully');
     })
     .catch(error => {
       console.error('Error sending data to server:', error);

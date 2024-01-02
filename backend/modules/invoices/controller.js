@@ -3,6 +3,7 @@ const updateStock = require('../../utils/updateStock');
 const Customer = require('../customer/schema');
 const Product = require('../product/schema');
 const invoiceUtils = require('../../utils/invoiceRender');
+const currentMonthUtil = require('../../utils/current-month-invoice');
 const numberToWords = require('number-to-words');
 
 exports.createInvoice = async (req, res) => {
@@ -42,8 +43,10 @@ exports.createInvoice = async (req, res) => {
 
 exports.createInvoicePurchase = async (req,res) => {
   try {
+    const customers = await Customer.find();
     const products = await Product.find();
-    res.render('./invoice/purchase-create', { products, pageTitle: 'Product' });
+    const header = 'Invoices / Create Purchase Invoice'
+    res.render('./invoice/purchase-create', { products, header, customers });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -52,8 +55,13 @@ exports.createInvoicePurchase = async (req,res) => {
 
 exports.createInvoiceSales = async (req,res) => {
   try {
+    const customers = await Customer.find();
     const products = await Product.find();
-    res.render('./invoice/sales-create', { products, pageTitle: 'Product' });
+    const lastInvoice = await Invoice.findOne().sort({ date: -1 });
+
+    const lastInvoiceNumber = lastInvoice.invoiceNumber;
+    const header = 'Invoices / Create Sales Invoice'
+    res.render('./invoice/sales-create', { products, customers, header, lastInvoiceNumber });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -63,10 +71,24 @@ exports.createInvoiceSales = async (req,res) => {
 exports.getAllInvoices = async (req, res) => {
   try {
     const invoices = await Invoice.find();
-   res.render('./invoice/invoice-list',{ invoices });
+    const header = 'Invoices / All-Invocies'
+    res.render('./invoice/invoice-list',{ invoices , header });
    // res.status(200).json(invoices);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+exports.currentMonthInvoices = async (req, res) => {
+  try {
+      const allInvoices = await Invoice.find();
+      const invoices = currentMonthUtil.getMonthWiseInvoices(allInvoices);
+      const header = 'Invocies / Current Month'
+
+      res.render('./invoice/invoice-list', { invoices , header });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Error has Occurred');
   }
 };
 

@@ -1,0 +1,60 @@
+.product-filter {
+    background: white;
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 1.5em;
+    padding: 1em;
+}
+
+.product-filter label {
+    margin-right: 1em;
+    color: var(--primary-color);
+}
+
+.product-filter select {
+    font-weight: 600;
+    border: none;
+    appearance: none;
+    text-align: center;
+    padding: .75em 2em;
+}
+
+.product-filter button {
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    padding: .75rem 2rem;
+    text-align: center;
+    background: var(--secondary-color);
+    color: white;
+}
+
+    table {
+        width: calc(100% - 3em);
+        box-shadow: var(--box-shadow);
+        margin: 1em 1.5em;
+        background: white;
+        border-collapse: collapse;
+}
+
+thead th {
+    background: var(--secondary-color);
+    margin: 1em;
+    color: white;
+    padding: 1em;
+    text-align: left;
+}
+
+tbody td {
+    padding: 1em;
+    border-bottom: 1px solid #ddd; 
+}
+
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

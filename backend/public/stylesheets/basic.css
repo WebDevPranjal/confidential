@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Raleway:wght@100;200;400;600;800&display=swap');
+
+/* 
+    available font weight - 100,200,400,600;
+*/
+
+:root {
+    --main-bg-color: #F9F7F7;
+    --main-text-color: #112D4E;
+    --primary-color: #3F72AF;
+    --secondary-color: #112D4E;
+    --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--main-bg-color);
+}

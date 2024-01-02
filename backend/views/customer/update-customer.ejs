@@ -3,83 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Customer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .form-container {
-      max-width: 400px;
-      width: 100%;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 16px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #4caf50;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Update Customer</title>
+  <link rel="stylesheet" href="/stylesheets/basic.css">
+  <link rel="stylesheet" href="/stylesheets/common.css">
+  <link rel="stylesheet" href="/stylesheets/create-customer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="form-container">
-    <h2>Create Customer</h2>
-    <form onsubmit="event.preventDefault(); sendData('<%= customer._id %>');">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<%= customer.name %>" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<%= customer.email %>"required>
-
-      <label for="address">Address:</label>
-      <input type="text" id="address" name="address" value="<%= customer.address %>" required>
-
-      <label for="phoneNumber">Phone Number:</label>
-      <input type="tel" id="phoneNumber" name="phoneNumber" value="<%= customer.phoneNumber %>" required>
-
-      <label for="dlNumber">DL Number:</label>
-      <input type="text" id="dlNumber" name="dlNumber" value="<%= customer.dlNumber %>" required>
-
-      <label for="gstnNumber">GSTN Number:</label>
-      <input type="text" id="gstnNumber" name="gstnNumber" value="<%= customer.gstnNumber %>" required>
-
-      <label for="category">Category:</label>
-      <select id="category" name="category" required>
-        <option value="creditor">Creditor</option>
-        <option value="debitor">Debitor</option>
-      </select>
-
-      <button type="submit">Update Customer</button>
-    </form>
-  </div>
+ 
+  <%- include('../common/side-menu.ejs') %>
+  <section class="home-section">
+    <nav class="navbar">
+      <i class="fa-solid fa-bars"></i>
+      <%- include('../common/navbar.ejs') %>
+    </nav>
+    
+    <p class="page-details"><%= header %></p>
+    
+    <section class="body">
+      <div class="form-container">
+        <form onsubmit="event.preventDefault(); sendData('<%= customer._id %>');">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" value="<%= customer.name %>" required>
+    
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="<%= customer.email %>"required>
+    
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" value="<%= customer.address %>" required>
+    
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" value="<%= customer.phoneNumber %>" required>
+    
+          <label for="dlNumber">DL Number:</label>
+          <input type="text" id="dlNumber" name="dlNumber" value="<%= customer.dlNumber %>" required>
+    
+          <label for="gstnNumber">GSTN Number:</label>
+          <input type="text" id="gstnNumber" name="gstnNumber" value="<%= customer.gstnNumber %>" required>
+    
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="creditor">Creditor</option>
+            <option value="debitor">Debitor</option>
+          </select>
+    
+          <button type="submit">Update Customer</button>
+        </form>
+      </div>
+    </section>
+  </section>
 </body>
+<script src="/scripts/side-menu.js"></script>
 <script>
     async function sendData(id) {
         const name = document.getElementById('name').value;
@@ -100,7 +74,7 @@
             gstnNumber: gstnNumber
         }
 
-       // console.log(data);
+       console.log(data);
 
         try {
             const response = await fetch(`/customers/${id}`, {

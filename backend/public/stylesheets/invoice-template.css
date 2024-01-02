@@ -12,6 +12,10 @@ body {
     color:#36454F;
 }
 
+.bold {
+    font-weight: 600;
+}
+
 p {
     margin: 0;
 }
@@ -20,6 +24,7 @@ p {
     background-color: #fff;
     max-width: 53.75em;
     margin: 0 auto;
+    height: 130vh;
     padding: 1.25em;
 }
 
@@ -60,12 +65,19 @@ p {
 
 .invoice-details strong {
     text-transform: uppercase;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .invoice-details p {
     margin-top: 0.4em;
     font-size: 0.8em;
+    color: var(--dark-grey);
+}
+
+.invoice-details .special {
+    font-size: 1em;
+    font-weight: 600;
+    color: #36454F;
 }
 
 
@@ -79,12 +91,13 @@ p {
     display: flex;
     padding: 2.5em 1.5em;
     height: 7em;
-    justify-content: space-between;
+    gap:2em;
     border-left: 1em solid var(--red-color)
 }
 
 .right-side p {
     font-size: 0.8em;
+    font-weight: 600;
 }
 
 .invoice-items,
@@ -94,10 +107,13 @@ p {
     margin-top: 1.25em;
 }
 
+.invoice-items {
+    border:1px solid var(--dark-grey);
+}
+
 .invoice-items th,
 .invoice-items td {
-    /* border: 1px solid #ddd; */
-    padding: 0.3125em;
+    padding: 0.3em;
     text-align: left;
 }
 
@@ -107,8 +123,12 @@ p {
     text-transform: uppercase;
     font-weight: 600;
 }
-th, td {
+th {
     font-size: .8em;
+}
+
+td {
+    font-size: 0.7em;
 }
 
 .gst-details {
@@ -175,11 +195,24 @@ th, td {
     height: 100%;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 1em 0.5em;
+    padding: 1.2em 0.5em;
     padding-left: 8em;
     background: var(--red-color);
     color:white;
     font-weight: 600;
+}
+
+.terms {
+    margin-top: 1em;
+    width: 100%;
+    height: 7em;
+    font-size: .8em;
+    color: var(--dark-grey);
+}
+
+.terms h4 {
+    font-size: 1.2em;
+    margin: .3em 0;
 }
 
 .footer {
@@ -188,18 +221,24 @@ th, td {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 1em 0;
+    margin-bottom: 1em;
 }
 
 .footer h4 {
     font-size: 1.2em;
-    text-align: center;
     font-weight: 600;
     color:var(--red-color);
 }
 
 .footer .left {
     width: 30%;
+}
+
+.main-section {
+    height: 43em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .left img {
@@ -226,6 +265,13 @@ th, td {
     justify-content: space-between;
 }
 
+.footer .flex div {
+    display: flex;
+}
+i {
+    margin-right: .5em;
+}
+
 /* Print styles for A4 size */
 @media print {
     @page {
@@ -234,7 +280,8 @@ th, td {
     }
 
     body {
-        margin: 0; /* Adjust the margin as needed */
+        margin: 0;
+        background-color: white;
     }
 
     button {
@@ -243,5 +290,13 @@ th, td {
 
     .invoice {
         padding: 0;
+    }
+
+    .grand-total {
+        height: 6vh;
+    }
+
+    strong {
+        font-size: 1.1em;
     }
 }
