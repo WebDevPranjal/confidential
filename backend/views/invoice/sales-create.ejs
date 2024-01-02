@@ -30,9 +30,15 @@
 
           <div class="input-container">
             <label for="invoice-number">Invoice Number</label>
-            <input type="text" name="invoice-number" id="invoice-number" value="<%=lastInvoiceNumber + 1%>">
+            <% if(existingInvoice) { %>
+              <input type="text" name="invoice-number" id="invoice-number" value="<%= existingInvoice.invoiceNumber %>">
+            <% } else { %>
+              <input type="text" name="invoice-number" id="invoice-number" value="New Invoice Number">
+            <% } %>
           </div>
-      
+          
+                 
+    
         </div>
     
         <div class="flex">
